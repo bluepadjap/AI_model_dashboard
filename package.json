@@ -1,8 +1,8 @@
 {
-    "name": "AI_model_dashboard",
+    "name": "ai_model_dashboard",
     "version": "1.0.0",
     "private": true,
-    "homepage": "https://bluepadjap.github.io/AI_model_dashboard",
+    "homepage": "https://bluepadjap.github.io/ai_model_dashboard",
     "dependencies": {
       "react": "^18.0.0",
       "react-dom": "^18.0.0",
