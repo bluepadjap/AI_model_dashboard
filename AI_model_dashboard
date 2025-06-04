@@ -1,0 +1,47 @@
+import React, { useState } from "react";
+import { Card, CardContent } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Select, SelectItem } from "@/components/ui/select";
+import { categories, aiModels } from "./data";
+
+export default function AIDashboard() {
+  const [search, setSearch] = useState("");
+  const [filter, setFilter] = useState("All");
+
+  const filteredModels = aiModels.filter(
+    (model) =>
+      (filter === "All" || model.category === filter) &&
+      model.model.toLowerCase().includes(search.toLowerCase())
+  );
+
+  return (
+    <div className="p-6 space-y-4">
+      <h1 className="text-2xl font-bold">AI Model Directory</h1>
+      <div className="flex flex-col md:flex-row gap-4">
+        <Input
+          placeholder="Search models..."
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+        />
+        <Select value={filter} onValueChange={setFilter}>
+          <SelectItem value="All">All Categories</SelectItem>
+          {categories.map((cat) => (
+            <SelectItem key={cat} value={cat}>{cat}</SelectItem>
+          ))}
+        </Select>
+      </div>
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        {filteredModels.map((item, idx) => (
+          <Card key={idx} className="rounded-2xl shadow-md">
+            <CardContent className="p-4 space-y-2">
+              <h2 className="text-xl font-semibold">{item.model}</h2>
+              <p className="text-sm text-gray-500">Company: {item.company}</p>
+              <p className="text-sm text-gray-500">Category: {item.category}</p>
+              <p className="text-sm">{item.notes}</p>
+            </CardContent>
+          </Card>
+        ))}
+      </div>
+    </div>
+  );
+}
